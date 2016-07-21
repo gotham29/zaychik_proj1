@@ -49,7 +49,7 @@ DESCRIPTION = (
   "NOTE: You must run ./swarm.py before this, because model parameters\n"
   "are required to run NuPIC.\n"
 )
-mypath = '/home/sheiser1/nupic-master/examples/opf/clients/hotgym/prediction/one_gym/Dr_Zaychik_Data/selectedData'
+mypath = './Dr_Zaychik_Data/selectedData'
 only_csv_files = [f for f in listdir(mypath) if isfile(join(mypath, f)) and os.path.splitext(f)[1] == '.csv']
 for file in only_csv_files:
   print file
@@ -61,23 +61,23 @@ MODEL_PARAMS_DIR = "./model_params"
 DATE_FORMAT = "%m/%d/%y %H:%M"
 
 _METRIC_SPECS = (
-    MetricSpec(field='Input', metric='multiStep',
+    MetricSpec(field='Error', metric='multiStep',
                inferenceElement='multiStepBestPredictions',
                params={'errorMetric': 'aae', 'window': 1000, 'steps': 1}),
-    MetricSpec(field='Input', metric='trivial',
+    MetricSpec(field='Error', metric='trivial',
                inferenceElement='prediction',
                params={'errorMetric': 'aae', 'window': 1000, 'steps': 1}),
-    MetricSpec(field='Input', metric='multiStep',
+    MetricSpec(field='Error', metric='multiStep',
                inferenceElement='multiStepBestPredictions',
                params={'errorMetric': 'altMAPE', 'window': 1000, 'steps': 1}),
-    MetricSpec(field='Input', metric='trivial',
+    MetricSpec(field='Error', metric='trivial',
                inferenceElement='prediction',
                params={'errorMetric': 'altMAPE', 'window': 1000, 'steps': 1}),
 )
 
 def createModel(modelParams):
   model = ModelFactory.create(modelParams)
-  model.enableInference({"predictedField": "Input"})
+  model.enableInference({"predictedField": "Error"})
   return model
 
 
@@ -120,7 +120,7 @@ def runIoThroughNupic(inputData, model, gymName, plot):
     consumption = float(row[1])
     result = model.run({
       "timestamp": timestamp,
-      "Input": consumption
+      "Error": consumption
     })
     result.metrics = metricsManager.update(result)
 
@@ -129,7 +129,7 @@ def runIoThroughNupic(inputData, model, gymName, plot):
       print ("After %i records, 1-step altMAPE=%f" % (counter,
               result.metrics["multiStepBestPredictions:multiStep:"
                              "errorMetric='altMAPE':steps=1:window=1000:"
-                             "field=Input"]))
+                             "field=Error"]))
 
     if plot:
       result = shifter.shift(result)
