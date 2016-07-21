@@ -33,7 +33,7 @@ logging.basicConfig()
 from nupic.swarming import permutations_runner
 from swarm_description import SWARM_DESCRIPTION
 
-INPUT_FILE = "/home/sheiser1/nupic-master/examples/opf/clients/hotgym/prediction/one_gym/Dr_Zaychik_Data/selectedData/subj_3.csv"
+INPUT_FILE = "./Dr_Zaychik_Data/selectedData/subj_3.csv"
 DESCRIPTION = (
   "This script runs a swarm on the input data (subj_3.csv) and\n"
   "creates a model parameters file in the `model_params` directory containing\n"

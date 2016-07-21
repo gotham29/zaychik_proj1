@@ -26,14 +26,14 @@ SWARM_DESCRIPTION = {
       "fieldType": "datetime"
     },
     {
-      "fieldName": "Input",
+      "fieldName": "Error",
       "fieldType": "float",
       "maxValue": .32,
       "minValue": -.46
     }
   ],
   "streamDef": {
-    "info": "Input",
+    "info": "Error",
     "version": 1,
     "streams": [
       {
@@ -46,12 +46,12 @@ SWARM_DESCRIPTION = {
     ]
   },
 
-  "inferenceType": "TemporalMultiStep",
+  "inferenceType": "TemporalAnomaly",
   "inferenceArgs": {
     "predictionSteps": [
       1
     ],
-    "predictedField": "Input"
+    "predictedField": "Error"
   },
   "iterationCount": -1,
   "swarmSize": "small" # swarm size setting
