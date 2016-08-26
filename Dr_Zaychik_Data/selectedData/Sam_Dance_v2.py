@@ -38,13 +38,13 @@ for file in onlyfiles:
                 error = row[1] + row[2]
                 row.append(error)
                 if first:
-                    writer.writerow(['Time','Input','Response','Error'])
-                    writer.writerow(['datetime','float','float','float'])
+                    writer.writerow(['Time','Error'])
+                    writer.writerow(['datetime','float'])
                     writer.writerow(['T','','',''])
-                    writer.writerow([date.strftime('%m/%d/%y %H:0')] + row[1:])
+                    writer.writerow([date.strftime('%m/%d/%y %H:0')] + [row[1]])
                     first = False
                     continue
                 next_date = date + timedelta(time,0)
-                writer.writerow([next_date.strftime('%m/%d/%y %H:0')] + row[1:])
+                writer.writerow([next_date.strftime('%m/%d/%y %H:0')] + [row[1]])
                 
                 
